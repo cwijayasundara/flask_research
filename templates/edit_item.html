@@ -1,0 +1,17 @@
+<!-- edit_item.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="item-box">
+    <h2>Edit Item</h2>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="/edit/{{ item.id }}" method="POST">
+        <input type="text" name="name" placeholder="Item name" value="{{ item.name }}" required>
+        <input type="text" name="description" placeholder="Description" value="{{ item.description }}">
+        <input type="date" name="completion_date" value="{{ item.completion_date.strftime('%Y-%m-%d') if item.completion_date else '' }}" placeholder="Completion Date">
+        <input type="submit" value="Update Item">
+    </form>
+</div>
+{% endblock %}

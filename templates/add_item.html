@@ -1,0 +1,17 @@
+<!-- add_item.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="item-box">
+    <h2>Add New Item</h2>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Item name" required>
+        <input type="text" name="description" placeholder="Description">
+        <input type="date" name="completion_date" placeholder="Completion Date">
+        <input type="submit" value="Add Item">
+    </form>
+</div>
+{% endblock %}

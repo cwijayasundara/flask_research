@@ -1,0 +1,30 @@
+<!-- index.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="item-box">
+<h2>Your Bucket List</h2>
+<form action="/add" method="POST">
+<input type="text" name="name" placeholder="Item name" required>
+<input type="text" name="description" placeholder="Description">
+<input type="date" name="completion_date" placeholder="Completion Date">
+<input type="submit" value="Add Item">
+</form>
+</div>
+
+{% for item in items %}
+<div class="item-box">
+<h3>{{ item.name }}</h3>
+<p>Description: {{ item.description }}</p>
+<p>Completion Date: {{ item.completion_date.strftime('%Y-%m-%d') if item.completion_date else 'N/A' }}</p>
+<form action="/edit/{{ item.id }}" method="POST">
+<input type="submit" value="Edit">
+</form>
+<form action="/delete/{{ item.id }}" method="POST">
+<input type="submit" value="Delete">
+</form>
+</div>
+{% else %}
+<p>No bucket list items found. Start adding some!</p>
+{% endfor %}
+{% endblock %}

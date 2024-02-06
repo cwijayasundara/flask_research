@@ -1,0 +1,17 @@
+<!-- view_item.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="item-box">
+    <h2>View Item</h2>
+    <p><strong>Name:</strong> {{ item.name }}</p>
+    <p><strong>Description:</strong> {{ item.description }}</p>
+    <p><strong>Completion Date:</strong> {{ item.completion_date.strftime('%Y-%m-%d') if item.completion_date else 'N/A' }}</p>
+    <p><strong>Created At:</strong> {{ item.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+
+    <a href="/edit/{{ item.id }}">Edit</a>
+    <form action="/delete/{{ item.id }}" method="POST">
+        <input type="submit" value="Delete">
+    </form>
+</div>
+{% endblock %}

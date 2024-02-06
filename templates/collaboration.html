@@ -1,0 +1,48 @@
+<!-- collaboration.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="item-box">
+    <h2>Create a New Group</h2>
+    <form action="/create_group" method="POST">
+        <input type="text" name="group_name" placeholder="Group Name" required>
+        <input type="submit" value="Create Group">
+    </form>
+</div>
+
+<div class="item-box">
+    <h2>Add Item to Group</h2>
+    <form action="/add_item_to_group" method="POST">
+        <input type="text" name="item_name" placeholder="Item Name" required>
+        <input type="text" name="description" placeholder="Description">
+        <input type="date" name="completion_date" placeholder="Completion Date">
+        <select name="group_id">
+            {% for group in groups %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add Item">
+    </form>
+</div>
+
+<div class="item-box">
+    <h2>View Group Items</h2>
+    <form action="/view_group_items" method="POST">
+        <select name="group_id">
+            {% for group in groups %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="View Items">
+    </form>
+</div>
+
+{% if group_items %}
+<div class="item-box">
+    <h2>Items in Group: {{ selected_group.name }}</h2>
+    {% for item in group_items %}
+    <p>{{ item.name }} - {{ item.description }} - Due: {{ item.completion_date.strftime('%Y-%m-%d') if item.completion_date else 'N/A' }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
